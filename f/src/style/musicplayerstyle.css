@@ -1,0 +1,175 @@
+/* Nền body */
+body {
+    font-family: 'Lexend', sans-serif;
+    background: url('pink.gif') no-repeat center center fixed;
+    background-size: cover;
+    margin: 0;
+    padding: 0;
+}
+
+.card {
+    background-color: rgba(255, 211, 218, 0.7); 
+    border-radius: 10px;
+    backdrop-filter: blur(2px);
+    overflow: hidden;
+    box-shadow: 0 4px 10px rgba(114, 42, 90, 0.5);
+    margin: 20px auto;
+    width: 90%;
+    max-width: 500px;
+}
+
+.cardBody {
+    padding: 20px;
+    text-align: center;
+}
+
+.cardTitle {
+    font-size: 1.8em;
+    color: #ff69b4; /* Tông hồng đậm */
+    margin-bottom: 10px;
+}
+
+.card p {
+    color: #333;
+}
+
+.round-image {
+    border-radius: 50%;
+    object-fit: cover;
+    display: block;
+    margin: 0 auto;
+}
+
+.pink{
+    color:  rgba(255, 105, 180, 0.8);
+}
+
+/* Nút */
+.button {
+    color:  rgba(255, 105, 180, 0.8);
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.button:hover {
+    background-color: rgba(255, 20, 147, 0.8); /* Hồng đậm hơn khi hover */
+    transform: scale(1.05);
+    color: #ffffff;
+}
+
+.button:active {
+    transform: scale(0.98);
+}
+
+.lin {
+    color: rgba(255, 105, 180, 0.8); /* Màu hồng nhạt mặc định */
+    text-decoration: none; /* Xóa gạch chân mặc định */
+    transition: color 0.3s ease, transform 0.3s ease; /* Hiệu ứng khi hover */
+}
+
+.lin:hover {
+    color: rgba(255, 20, 147, 0.8); /* Hồng đậm hơn khi hover */
+    transform: scale(1.05); /* Phóng to nhẹ chữ khi hover */
+}
+
+.lin:active {
+    transform: scale(0.98); /* Thu nhỏ nhẹ khi click */
+}
+
+
+/* Thanh range */
+input[type="range"] {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 100%;
+    height: 8px;
+    background: linear-gradient(to right, #ff9acc, #f880c0); /* Hiệu ứng gradient hồng */
+    border-radius: 10px;
+    outline: none;
+    transition: background 0.3s ease-in-out;
+}
+
+input[type="range"]:hover {
+    background: linear-gradient(to right, #ff9acc, #f880c0); /* Gradient thay đổi khi hover */
+}
+
+/* Thumb (nút trượt) */
+input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 16px;
+    height: 16px;
+    border-radius: 4px;
+    background: #ffffff;
+    border: 4px solid #ff1493; /* Viền hồng */
+    cursor: pointer;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+
+input[type="range"]::-webkit-slider-thumb:hover {
+    transform: scale(1.2);
+    box-shadow: 0 0 8px rgba(255, 167, 211, 0.8);
+}
+
+input[type="range"]::-webkit-slider-thumb:active {
+    transform: scale(1.1);
+    background: #ffb1cd;
+    border-color: #ff7cbe;
+}
+
+input[type="range"]::-webkit-slider-runnable-track {
+    height: 8px;
+    border-radius: 10px;
+    background: linear-gradient(to right, #ffb9dc, #ff75bf);
+}
+.volume-short{
+    max-width: 100px;
+}
+.hidden-scroll::-webkit-scrollbar {
+    display: none;
+  }
+
+.heart-animation {
+    position: absolute;
+    animation: floatUp 1s ease-out forwards;
+    color: red;
+    font-size: 24px;
+}
+
+@keyframes floatUp {
+    0% {
+        opacity: 1;
+        transform: translate(0, 0);
+    }
+    100% {
+        opacity: 0;
+        transform: translate(-20px, -100px);
+    }
+}
+
+.hidden {
+    opacity: 0;
+    transform: translateY(-10px);
+    transition: opacity 0.3s ease, transform 0.3s ease;
+    height: 0;
+    overflow: hidden;
+  }
+  
+  .visible {
+    opacity: 1;
+    transform: translateY(0);
+    transition: opacity 0.3s ease, transform 0.3s ease;
+    height: auto;
+  }
+  
+.transparent-box {
+    background: rgba(255, 255, 255, 0.3); /* Nền trắng với độ trong suốt */
+    backdrop-filter: blur(10px); /* Hiệu ứng mờ kính */
+    border-radius: 15px; /* Bo góc */
+    padding: 20px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Thêm bóng nhẹ */
+  }
+  
