@@ -12,7 +12,7 @@ export default function Sidebar(){
                 acc&&(
                     <>
                     <Link className="lin ms-3 mb-3" to={'/upload'}>Tải lên</Link>
-                    <Link className="lin ms-3 mb-3" to={''}>Thư viện</Link>
+                    <Link className="lin ms-3 mb-3" to={'/library'}>Thư viện</Link>
                     </>
                 )
             }       

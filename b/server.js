@@ -78,7 +78,17 @@ app.get('/user/:id', (req, res) =>{
       res.json({Status: "Success", data: data});
     });
   });  
-  
+ 
+//Get all comments by songID
+app.get('/comments/:id', (req, res) =>{
+  const id = req.params.id;
+  const sql = "select c.*, a.username, u.userNickname, u.userPFP from ssongcomment c inner join suser a on c.userID = a.userID inner join suserpart u on c.userID = u.userID where c.songID = ?";
+  db.query(sql, [id], (error, data) => {
+    if (error) throw error;
+    res.json({Status: "Success", data: data});
+  });
+});  
+
 //Get music by id
 app.get('/music/:id', (req, res) =>{
   const id = req.params.id;
@@ -111,6 +121,17 @@ app.get('/followedUser/:accID/:followID', (req, res) =>{
   });
 });
 
+//get all followed user by userID
+app.get('/allfolloweduser/:accID', (req, res) =>{
+  const accID = req.params.accID;
+  const sql = "select fl.followID, u.username, up.userNickname, up.userPFP from sfollower fl inner join suser u on fl.followID = u.userID inner join "+
+  " suserpart up on u.userID = up.userID where fl.userID = ?";
+  db.query(sql, [accID], (error, data) => {
+    if (error) throw error;
+    res.json({Status: "Success", data:data});
+  });
+});
+
 //if this user liked the music
 app.get('/likedmusic/:accID/:songID', (req, res) =>{
   const accID = req.params.accID;
@@ -128,7 +149,7 @@ app.get('/allmusic', (req, res) =>{
               "from smusic v " +
               "inner join smusicpart vp on v.songID = vp.songID " +
               "inner join suser a on v.userID = a.userID "+
-              "inner join suserpart u on a.userID = u.userID order by v.uploadDate desc";
+              "inner join suserpart u on a.userID = u.userID order by v.uploadDate desc limit 30";
   db.query(sql, (e,data) =>{
     if (e) throw e;
     return res.json({Status: "Success", data: data});
@@ -144,6 +165,83 @@ app.get('/accountExist/:accName/:accMail', (req, res) => {
       return res.json({Status: "Success", data: data});
     });
   });
+
+//get all playlist by userID
+app.get('/userplaylists/:userID', (req, res) =>{
+  const sql = "select * from splaylist where userID = ?";
+  db.query(sql, [req.params.userID], (e, data) =>{
+    if (e)
+      throw e;
+    return res.json({Status: "Success", data: data});
+  })
+})
+
+//get playlist by id
+app.get('/playlist/:playlistID', (req, res) =>{
+  const sql = "select * from splaylist where playlistID = ?";
+  db.query(sql, [req.params.playlistID], (e, data) =>{
+    if (e)
+      throw e;
+    return res.json({Status: "Success", data: data});
+  })
+})
+
+//get all liked songs
+app.get('/likedsong/:userID', (req, res) =>{
+  const sql = "select lm.*, m.songName, m.songGenre, m.songArtist, "+
+  "mp.songImage, mp.songStream from slikedmusic lm inner join smusic m on lm.songID = m.songID "+
+  " inner join smusicpart mp on m.songID = mp.songID where lm.userID = ?";
+  db.query(sql, [req.params.userID], (e, data) =>{
+    if (e)
+      throw e;
+    return res.json({Status: "Success", data: data});
+  })
+})
+
+//get all song by playlistID
+app.get('/playlistsongs/:playlistID', (req, res) =>{
+  const sql = "select pls.*, m.songName, m.songGenre, m.songArtist, "+
+  "mp.songImage, mp.songStream from splaylistsong pls inner join smusic m on pls.songID = m.songID "+
+  " inner join smusicpart mp on m.songID = mp.songID where pls.playlistID = ?";
+  db.query(sql, [req.params.playlistID], (e, data) =>{
+    if (e)
+      throw e;
+    return res.json({Status: "Success", data: data});
+  })
+})
+
+//get a song playlist by genre and sort by date and stream
+app.get('/songgenre/:genre/:sort', (req, res) => {
+  const { genre, sort } = req.params;
+
+  const validSortColumns = ['uploadDate', 'songStream'];
+  if (!validSortColumns.includes(sort)) {
+      return res.status(400).json({ error: 'NO no no' });
+  }
+
+  const sortColumn = sort === 'songStream' ? 'mp.songStream' : `m.${sort}`;
+
+  const query = `
+      SELECT m.songID, m.songName, m.songArtist, m.songGenre, m.uploadDate, mp.songStream, mp.songLike, mp.songImage
+      FROM smusic m 
+      INNER JOIN smusicpart mp ON m.songID = mp.songID
+      WHERE m.songGenre LIKE ?
+      ORDER BY ${sortColumn} DESC
+      limit 100;
+  `;
+
+  const genreSearch = `%${genre}%`;
+
+  db.query(query, [genreSearch], (err, results) => {
+      if (err) {
+          console.error('Error executing query:', err);
+          return res.status(500).json({ error: 'Database query failed' });
+      }
+      res.json(results);
+  });
+});
+
+
 
 app.get('/logout', (req, res) =>{
     res.clearCookie('token');
@@ -220,6 +318,16 @@ app.post("/register", (req, res) => {
   });
 });
 
+//add playlist
+app.post('/addplaylist', (req, res) =>{
+  const sql = "insert into splaylist (playlistID, userID, playlistName) value (?,?,?)";
+  const id = "pl" + uuid.v4().replace(/-/g, '').slice(0, 9);
+  db.query(sql, [id, req.body.userID, req.body.playlistName], (e, data) =>{
+    if (e) throw e;
+    res.json({Status: "Success", data: data});
+  })
+})
+
 //follow user
 app.post('/follow', (req, res) =>{
   const accID = req.body.accID;
@@ -235,6 +343,14 @@ app.post('/follow', (req, res) =>{
   });
 });
 
+app.post('/stream/:songID', (req, res) =>{
+  const sql = "update smusicpart set songStream = songStream + 1 where songID = ?"
+    db.query(sql, [req.params.songID], (err, data) =>{
+      if (err) throw err;
+      res.json({Status: "Success", data: data});
+    });
+}
+)
 //unfollow user
 app.post('/unfollow', (req, res) =>{
   const accID = req.body.accID;
@@ -280,6 +396,37 @@ app.post('/dislike', (req, res) =>{
   });
 });
 
+//add song to playlist
+app.post('/addtoplaylist', (req, res) =>{
+  const songID = req.body.songID;
+  const playlistID = req.body.playlistID;
+  const sql = "insert into splaylistsong (songID, playlistID) values (?,?)";
+  db.query(sql, [songID, playlistID], (err, data) =>{
+    if (err) throw err;
+    res.json({Status: "Success", data: data});
+  });
+})
+
+//comment to song post
+app.post("/addcmt", (req, res) =>{
+  sql = "insert into ssongcomment (cmtID, userID, songID, cmt) value (?,?,?,?)";
+  const id = "cmt" + uuid.v4().replace(/-/g, '').slice(0, 10);
+  db.query(sql, [id, req.body.userID, req.body.songID, req.body.cmt], (e, data) =>{
+    if (e) throw e;
+    res.json(data);
+  })
+})
+
+//like the comment
+app.post('/likecmt', (req, res) =>{
+  const sql = "update ssongcomment set cmtLike = cmtLike + 1 where cmtID = ?";
+  db.query(sql, [req.body.cmtID], (error, data) => {
+    if (error) throw error;
+    res.json({Status: "Success", data: data});
+  });
+});
+
+//change password
 app.post("/changePassword", (req, res) => {
   const { currentPassword, newPassword, userID } = req.body;
   db.query("SELECT userPassword FROM suserpart WHERE userID = ?", [userID], (err, data) => {

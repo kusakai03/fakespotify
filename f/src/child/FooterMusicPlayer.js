@@ -4,6 +4,7 @@ import { faPlay, faPause, faRepeat, faVolumeUp, faInfo, faHeart as faHeartSolid,
 import { faHeart as faHeartRegular } from '@fortawesome/free-regular-svg-icons';
 import { Button, Card, CardBody, CardTitle, Col, Image,} from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { streamSong } from "../static/songStream";
 
 
 
@@ -18,6 +19,11 @@ export default function FooterMusicPlayer({music, onPrev, onNext}){
     useEffect(() =>{
         playMusic();
     }, [music]);
+
+    useEffect(() =>{
+        streamSong(music.songID);
+    },[]);
+
     function playMusic(){
         audio.current.play();
         setPlayState(true);
@@ -86,9 +92,9 @@ export default function FooterMusicPlayer({music, onPrev, onNext}){
                     {/* Cột trái: Hình ảnh và tên bài hát */}
                     <div className="col-3 d-flex align-items-center">
                         <Image
-                            src={SONG(music?.songImage) || "/image/defaultsongimg.jpg"}
+                            src={music?.songImage? SONG(music?.songImage) :"/image/defaultsongimg.jpg"}
                             className="img-fluid rounded-circle"
-                            style={{ maxWidth: "80px", marginRight: "10px" }}
+                            style={{ width: "80px", height:"80px", objectFit:"cover", marginRight: "10px" }}
                         />
                         <p className="d-none d-sm-inline" style={{ margin: 0, fontSize: "14px" }}>{music?.songName}</p>
                     </div>

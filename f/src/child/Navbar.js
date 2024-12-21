@@ -3,6 +3,8 @@ import { Button, Container, Dropdown, DropdownItem, DropdownItemText, DropdownTo
 import Authentication from "./Authentication";
 import useFetchAccount from "../static/fetchAccount";
 import axios from "axios";
+import { PFP } from "../static/getstring";
+import { useNavigate } from "react-router-dom";
 
 
 function Navpinkpink() {
@@ -10,12 +12,13 @@ function Navpinkpink() {
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
+  const nav = useNavigate();
   const {acc, error} = useFetchAccount();
 
   function handleLogout(){
     axios.get('http://localhost:8000/logout')
     .then(res => {
-      window.location.reload(true);
+      nav('/');
     }).catch(e => console.log(e));
   }
 
@@ -38,7 +41,7 @@ function Navpinkpink() {
               <div className="d-flex flex-column align-items-center">
                 <Dropdown className="position-relative" drop="start">
                   <DropdownToggle as="a" variant="none" className="text-decoration-none text-light">
-                    <Image className="rounded-circle" src="/image/defaultpfp.jpg" alt="avatar" style={{ width: 40, height: 40 }} />
+                    <Image className="rounded-circle" src={acc?.userPFP ? PFP(acc.userPFP) : '/image/defaultpfp.jpg'} alt="avatar" style={{ width: 40, height: 40, objectFit:'cover'}} />
                   </DropdownToggle>
                   <Dropdown.Menu>
                     <DropdownItemText className="ms-3">Hello {acc?.userNickname || acc?.username}!</DropdownItemText>

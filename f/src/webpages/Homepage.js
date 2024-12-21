@@ -4,6 +4,7 @@ import Sidebar from "../child/Sidebar";
 import '../style/musicplayerstyle.css';
 import { Card, Col, Row } from "react-bootstrap";
 import HpageMain from "../child/HomepageMain";
+import HomepageFooter from "../child/HomepageFooter";
 
 export default function Homepage(){
 
@@ -16,6 +17,7 @@ export default function Homepage(){
             <Col className="col-xl-10">
                 <div className="bg-light bg-opacity-50 rounded mt-3 me-3">
                     <HpageMain/>
+                    <HomepageFooter/>
                 </div>
             </Col>
         </Row>

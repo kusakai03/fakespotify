@@ -4,24 +4,23 @@ export function GetLocalBE(route){
 }
 export function GetGenres(){
     const genres = [
-        "Pop", "Rock", "Jazz", "Classical", "Hip-Hop/Rap", "Country", "Blues", "Reggae", "R&B/Soul",
-        "Electronic/Dance (EDM)", "Folk", "Punk", "Alternative", "Metal", "Indie", "Gospel", "Techno", 
-        "Disco", "Trance", "House", "Ambient", "Funk", "Ska", "Swing", "Grunge", "Bluegrass", 
-        "Latin (e.g., Salsa, Bachata, Tango)", "World Music", "Opera", "Soundtrack", "Dubstep", "Hardcore", 
-        "K-pop", "Psychedelic Rock", "Post-punk", "Reggaeton", "Trap", "Acoustic", "New Age", "Experimental", 
-        "Folk Rock", "Jazz Fusion", "Progressive Rock", "Industrial", "Savant Pop", "Lofi Hip-Hop", 
-        "Tech House", "Chillwave", "Synthwave", "Vaporwave", "Tango", "Bollywood", "Celtic", "Afrobeat", 
-        "Soul", "Blues Rock", "Trap Soul", "Kawaii Metal", "Bossa Nova", "Zydeco", "Electropop", "Neofolk", 
-        "Salsa", "Bhangra", "Tropical House", "Future Bass", "Big Room", "Post-rock", "Screamo", "Hardstyle", 
-        "Industrial Metal", "Melodic Death Metal", "Deathcore", "Grindcore", "Post-hardcore", "Nu Metal", 
-        "Viking Metal", "Black Metal", "Ambient Dub", "Downtempo", "Tech Trance", "Minimal Techno", 
-        "Lounge", "Chiptune", "J-Pop", "Cumbia", "Sambass", "Haitian Kompa", "Mambo", "Marching Band", 
-        "Fado", "Reggae Fusion", "Folk Punk", "Art Rock", "Christian Rock", "Dub", "Ethereal Wave", 
-        "Ragga", "Minimal Wave", "Gothic Rock", "Doom Metal", "Shoegaze", "Chamber Pop", "Grime", "Baroque Pop",
-        "Ballad", "Soul Jazz", "Vocal Jazz", "Neo-Soul", "Indie Pop", "Alternative Hip-Hop", "Post-Disco", 
-        "Psytrance", "Lo-Fi", "Electro Swing", "Reggae Dub", "Soul Funk", "Barbershop", "New Wave", "Ska Punk",
-        "Crunk", "Chamber Music", "Psychobilly", "Doo-Wop", "Surf Rock", "Celtic Punk", "Synthpop"
-    ];
+        "Acoustic", "Afrobeat", "Alternative", "Alternative Hip-Hop", "Ambient", "Ambient Dub", "Ballad", 
+        "Barbershop", "Baroque", "Baroque Pop", "Big Room", "Blues", "Blues Rock", "Bollywood", "Bossa Nova", 
+        "Chamber Music", "Chamber Pop", "Chillwave", "Chiptune", "Christian Rock", "Classical", "Crunk", "Cumbia", 
+        "Cumbia Villera", "Deathcore", "Dance Pop", "Dancehall", "Disco", "Doo-Wop", "Downtempo", "Dub", "Dubstep", 
+        "Electro Swing", "Electroclash", "Electropop", "Electronic/Dance (EDM)", "Ethereal Wave", "Experimental", 
+        "Fado", "Folk", "Folk Punk", "Folk Rock", "Future Bass", "Goregrind", "Gospel", "Grime", "Grindcore", 
+        "Gothic Rock", "Grunge", "Hardcore", "Hardcore Punk", "Hardstyle", "Hip-Hop/Rap", "House", "Industrial", 
+        "Industrial Metal", "Indie", "Indie Pop", "Jazz", "Jazz Fusion", "Jazz Rock", "J-Pop", "K-pop", "Kawaii Metal", 
+        "Klezmer", "Latin (e.g., Salsa, Bachata, Tango)", "Lo-Fi", "Lofi Hip-Hop", "Lounge", "Marching Band", 
+        "Melodic Death Metal", "Melodic Hardcore", "Minimal Techno", "Minimal Wave", "Mambo", "Metal", "Neofolk", 
+        "New Age", "New Wave", "Nu Metal", "Pop", "Post-Disco", "Post-hardcore", "Post-punk", "Post-punk Revival", 
+        "Post-rock", "Psychedelic Rock", "Psytrance", "Progressive Rock", "Punk Rock", "Ranchera", "Reggae", 
+        "Reggae Dub", "Reggae Fusion", "Reggaeton", "Rock", "R&B/Soul", "Ragga", "Savant Pop", "Screamo", "Soul", 
+        "Soul Funk", "Ska", "Ska Jazz", "Ska Punk", "Soundtrack", "Surf Rock", "Synthpop", "Synthwave", "Tech House", 
+        "Tech Trance", "Tango", "Tango Nuevo", "Trap", "Trap Beats", "Trap Soul", "Tropical House", "Vaporwave", 
+        "Viking Metal", "Vocal Jazz", "Vocal House", "Vocaloid", "World Music", "Zydeco"
+    ];    
     return genres;
 }
 export function PFP(path){

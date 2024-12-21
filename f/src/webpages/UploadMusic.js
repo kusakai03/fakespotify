@@ -32,6 +32,18 @@ export default function UploadMusic(){
         g.toLowerCase().includes(searchTerm.toLowerCase())
     );
 
+    useEffect(() => {
+        if (!acc) {
+            const timer = setTimeout(() => {
+                if (!acc) {
+                    nav('/');
+                }
+            }, 500);
+    
+            return () => clearTimeout(timer); 
+        }
+    }, [acc, nav]);
+    
     function playMusic() {
         if (audio.current.readyState >= 3) {
             audio.current.play();
@@ -61,11 +73,14 @@ export default function UploadMusic(){
     function handleAudioUpload(event) {
         const file = event.target.files[0];
         if (file) {
-            const objectUrl = URL.createObjectURL(file); 
-            setAudioFile(objectUrl);
-            setAudioSrc(file);
-            audio.current.src = objectUrl; 
-            audio.current.load();
+            const fileSizeInMB = file.size / (1024 * 1024);
+            if (fileSizeInMB <= 10){
+                const objectUrl = URL.createObjectURL(file); 
+                setAudioFile(objectUrl);
+                setAudioSrc(file);
+                audio.current.src = objectUrl; 
+                audio.current.load();
+            }
         }
     }    
     
@@ -149,7 +164,7 @@ export default function UploadMusic(){
             <Card className="p-4">
                 <Form method="post" encType="multipart/form-data">
                     <Form.Group className="mb-3" controlId="formAudioFile">
-                    <Form.Label>Chọn file âm thanh</Form.Label>
+                    <Form.Label>Chọn file âm thanh (không quá 10MB)</Form.Label>
                     <Form.Control type="file" accept="audio/*" onChange={handleAudioUpload} />
                     </Form.Group>
 
@@ -230,7 +245,7 @@ export default function UploadMusic(){
                         <CardTitle className="d-flex justify-content-center">{audioName || 'Nhập tên bài hát'}</CardTitle>
                         <p className="text-center">{artistName || 'Ca sĩ ẩn danh'}</p>
                         <p className="text-center">{genre.length > 0 ? genre.join(", ") : 'Chọn thể loại nhạc'}</p>
-                        <Image src={coverImage ? URL.createObjectURL(coverImage) : '/image/defaultsongimg.jpg'} className="mt-5 mb-5 round-image w-100" style={{maxWidth:"300px", maxHeight:"300px",objectFit: 'cover'}}/>
+                        <Image src={coverImage ? URL.createObjectURL(coverImage) : '/image/defaultsongimg.jpg'} className="mt-5 mb-5 round-image" style={{width:"300px", height:"300px",objectFit: 'cover'}}/>
                         <audio ref={audio} 
                             src={audioFile? audioFile : "/music/her.mp3"} 
                             onTimeUpdate={handleTimeUpdate}

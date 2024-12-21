@@ -77,7 +77,7 @@ export default function ProfileUser(){
             <Row className="mb-4 transparent-box">
                 <Col md={4} className="text-center">
                 <Image
-                    src={PFP(user?.userPFP) || '/image/defaultpfp.jpg'}
+                    src={user?.userPFP ? PFP(user.userPFP) : '/image/defaultpfp.jpg'}
                     alt="Avatar"
                     className="rounded-circle"
                     style={{ width: "150px", height: "150px", objectFit: "cover" }}
@@ -113,7 +113,7 @@ export default function ProfileUser(){
                 <div className="d-flex flex-row align-items-center p-3 border rounded shadow-sm">
                     <div className="me-3">
                     <Image
-                        src={SONG(song.songImage)}
+                        src={song.songImage? SONG(song.songImage) : '/image/defaultsongimg.jpg'}
                         alt={song.songName}
                         className="img-fluid rounded"
                         style={{ width: '80px', height: '80px', objectFit: 'cover' }}

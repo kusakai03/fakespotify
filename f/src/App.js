@@ -9,6 +9,8 @@ import UploadMusic from './webpages/UploadMusic';
 import PlayMusic from './webpages/PlayMusic';
 import ProfileUser from './webpages/ProfileUser';
 import UserSetting from './webpages/UserSetting';
+import Library from './webpages/Library';
+import Playlist from './webpages/Playlist';
 
 function App() {
   return (
@@ -19,6 +21,8 @@ function App() {
     <Route path='/listen/:id' element={<PlayMusic/>}/>
     <Route path='/profile/:id' element={<ProfileUser/>}/>
     <Route path='/setting' element={<UserSetting/>}/>
+    <Route path='/library' element={<Library/>}/>
+    <Route path='/playlist/:id' element={<Playlist/>}/>
     </Routes>
   </Router>
   );
